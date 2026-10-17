@@ -61,7 +61,7 @@ function BookPage() {
   ][step];
 
   const confirm = () => {
-    const [ws, we] = WINDOWS[win];
+    const [ws, we] = WINDOWS[win]!;
     const b: Booking = {
       id: "KS-" + Math.floor(25000 + Math.random() * 9000), farmerId: "F-1021", farmerName: "Ramesh Kumar",
       village, destination, pickupDate: date, windowStart: ws, windowEnd: we, flexible, crops,
@@ -157,7 +157,7 @@ function BookPage() {
               {options.map((o) => (
                 <button key={o.id} onClick={() => setOpt(o.id)} className={`w-full rounded-md border p-5 text-left ${opt === o.id ? "border-forest ring-2 ring-forest" : "bg-card"}`}>
                   <div className="flex justify-between"><p className="font-display text-xl text-forest">{o.label}</p><p className="font-display text-2xl">₹{o.cost}<span className="text-sm text-muted-foreground"> est.</span></p></div>
-                  <p className="mt-1 text-sm text-muted-foreground">{vehicle?.label} · {o.farmers} farmer{o.farmers > 1 ? "s" : ""} · {o.km} km · window {WINDOWS[win][0]}:00–{WINDOWS[win][1]}:00</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{vehicle?.label} · {o.farmers} farmer{o.farmers > 1 ? "s" : ""} · {o.km} km · window {WINDOWS[win]![0]}:00–{WINDOWS[win]![1]}:00</p>
                   <p className="mt-2 inline-block rounded bg-harvest/30 px-2 py-0.5 text-xs">{o.status}</p>
                 </button>
               ))}
@@ -166,7 +166,7 @@ function BookPage() {
           )}
 
           {step === 4 && (
-            <Manifest b={{ id: "Draft", farmerId: "F-1021", farmerName: "Ramesh Kumar", village, destination, pickupDate: date, windowStart: WINDOWS[win][0], windowEnd: WINDOWS[win][1], flexible, crops, status: "requested", createdAt: "" }} />
+            <Manifest b={{ id: "Draft", farmerId: "F-1021", farmerName: "Ramesh Kumar", village, destination, pickupDate: date, windowStart: WINDOWS[win]![0], windowEnd: WINDOWS[win]![1], flexible, crops, status: "requested", createdAt: "" }} />
           )}
 
           <div className="mt-8 flex justify-between border-t pt-6">

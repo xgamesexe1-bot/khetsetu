@@ -18,7 +18,7 @@ export const Route = createFileRoute("/driver")({
   component: DriverPage,
 });
 
-type StopRecord = { photo?: string; collected?: number; note?: string; resolved?: boolean; done?: boolean; synced?: boolean };
+type StopRecord = { photo?: string | undefined; collected?: number | undefined; note?: string | undefined; resolved?: boolean | undefined; done?: boolean; synced?: boolean };
 
 function DriverPage() {
   const bookings = useBookings().filter((b) => DEMO_TRIP.bookingIds.includes(b.id));

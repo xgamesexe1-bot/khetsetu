@@ -4,7 +4,7 @@ import { DEMO_TRIP } from "@/lib/demo-data";
 const ZONE_FILL = ["fill-harvest/70", "fill-leaf/60", "fill-terracotta/60", "fill-earth/50", "fill-forest/40", "fill-harvest/40"];
 
 /** Top-down truck with labelled cargo zones. */
-export function TruckLayout({ zones, highlight }: { zones: ZoneAllocation[]; highlight?: string }) {
+export function TruckLayout({ zones, highlight }: { zones: ZoneAllocation[]; highlight?: string | undefined }) {
   const n = Math.max(zones.length, 1);
   const cols = Math.ceil(n / 2);
   const w = 360 / cols;

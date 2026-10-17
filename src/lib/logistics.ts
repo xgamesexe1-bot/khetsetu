@@ -65,7 +65,7 @@ export function windowsOverlap(a: Pick<Booking, "windowStart" | "windowEnd">, b:
 export function poolFeasibility(bookings: Booking[], vehicle: Vehicle): { ok: boolean; reasons: string[] } {
   const reasons: string[] = [];
   if (bookings.length === 0) return { ok: false, reasons: ["No bookings"] };
-  const [first] = bookings;
+  const first = bookings[0]!;
   if (bookings.some((b) => b.destination !== first.destination)) reasons.push("Different destinations");
   if (bookings.some((b) => b.pickupDate !== first.pickupDate)) reasons.push("Different pickup dates");
   const start = Math.max(...bookings.map((b) => b.windowStart));
@@ -125,7 +125,7 @@ export function reconcileBags(scheduled: number, collected: number): Reconciliat
 }
 
 /** A pickup can close only if verified, or a discrepancy carries a note and a resolution. */
-export function canClosePickup(r: Reconciliation, opts: { photoTaken: boolean; note?: string; resolved?: boolean }) {
+export function canClosePickup(r: Reconciliation, opts: { photoTaken: boolean; note?: string | undefined; resolved?: boolean | undefined }) {
   if (!opts.photoTaken) return false;
   if (r.status === "verified") return true;
   return Boolean(opts.note && opts.note.trim().length > 0 && opts.resolved);
@@ -137,11 +137,11 @@ export type AllocationMethod = "weight" | "bags" | "equal";
 export function allocateCost(totalCost: number, shares: { id: string; weightKg: number; bags: number }[], method: AllocationMethod) {
   const basis = shares.map((s) => (method === "weight" ? s.weightKg : method === "bags" ? s.bags : 1));
   const sum = basis.reduce((a, b) => a + b, 0) || 1;
-  const raw = shares.map((s, i) => ({ id: s.id, amount: Math.floor((totalCost * basis[i]) / sum) }));
+  const raw = shares.map((s, i) => ({ id: s.id, amount: Math.floor((totalCost * basis[i]!) / sum) }));
   const remainder = totalCost - raw.reduce((a, r) => a + r.amount, 0);
   if (raw.length) {
     const maxIdx = basis.indexOf(Math.max(...basis));
-    raw[maxIdx].amount += remainder;
+    raw[maxIdx]!.amount += remainder;
   }
   return raw;
 }

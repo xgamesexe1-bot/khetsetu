@@ -23,7 +23,7 @@ describe("weight", () => {
 });
 
 describe("pooling", () => {
-  const ace = VEHICLES[0];
+  const ace = VEHICLES[0]!;
   it("rejects load above payload", () => {
     const r = poolFeasibility([mk("a", [{ crop: "Wheat", bags: 16, kgPerBag: 50 }])], ace);
     expect(r.ok).toBe(false);

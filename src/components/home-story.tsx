@@ -138,7 +138,7 @@ function MotionRoute({ p }: { p: MotionValue<number> }) {
 function CargoChapter() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
-  const zones = allocateZones(DEMO_BOOKINGS.slice(0, 3), VEHICLES[1]);
+  const zones = allocateZones(DEMO_BOOKINGS.slice(0, 3), VEHICLES[1]!);
   const clip = useTransform(scrollYProgress, [0.2, 1], ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]);
   return (
     <section ref={ref} className="py-28">

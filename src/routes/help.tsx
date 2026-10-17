@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHead } from "@/components/site-chrome";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const FAQ = [
+const FAQ: [string, string][] = [
   ["How far ahead can I book?", "Up to 30 days before your pickup date."],
   ["Will my crop mix with others?", "No. Each farmer and crop gets a marked cargo zone, shown on your manifest."],
   ["What if fewer bags are collected?", "The driver records the actual count with a photo. You confirm it, and the original booking count is never changed."],
