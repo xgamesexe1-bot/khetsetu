@@ -1,5 +1,5 @@
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useRef } from "react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import heroField from "@/assets/hero-field.jpg";
 import verifyBags from "@/assets/verify-bags.jpg";
@@ -130,20 +130,9 @@ function RouteChapter() {
   );
 }
 function MotionRoute({ p }: { p: MotionValue<number> }) {
-  const val = useTransform(p, (v) => v);
-  return <motion.div><RouteMapLive v={val} /></motion.div>;
-}
-function RouteMapLive({ v }: { v: MotionValue<number> }) {
-  const d = useTransform(v, (x) => 1 - x);
-  return (
-    <div className="relative">
-      <RouteMap progress={1} />
-      <svg viewBox="0 0 680 320" className="pointer-events-none absolute inset-0 w-full">
-        <motion.rect width="680" height="320" className="fill-paper" style={{ opacity: useTransform(d, [0, 1], [0, 0]) }} />
-      </svg>
-      <motion.div className="absolute left-0 top-0 h-1 rounded bg-forest" style={{ width: useTransform(v, (x) => `${x * 100}%`) }} />
-    </div>
-  );
+  const [v, setV] = useState(0);
+  useMotionValueEvent(p, "change", setV);
+  return <RouteMap progress={v} />;
 }
 
 function CargoChapter() {
