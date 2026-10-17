@@ -28,5 +28,5 @@ export const DEMO_TRIP = {
     { label: "Digod", x: 250, y: 150 },
     { label: "Sangod", x: 420, y: 230 },
     { label: "Kota Mandi", x: 600, y: 90 },
-  ],
+  ] as const,
 };
